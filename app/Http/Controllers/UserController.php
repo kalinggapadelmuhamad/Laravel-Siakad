@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $type_menu  = 'users';
         $keyword    = $request->input('name');
-        $users      = User::when($request->input('name'), function ($query, $name) {
+        $users      = User::when($request->name, function ($query, $name) {
             $query->where('name', 'like', '%' . $name . '%');
         })->orderBy('id', 'DESC')->paginate(10);
 

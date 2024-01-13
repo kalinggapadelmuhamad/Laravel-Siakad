@@ -45,4 +45,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function subject()
+    {
+        return $this->hasMany(Subject::class);
+    }
+
+    public function schedule()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
