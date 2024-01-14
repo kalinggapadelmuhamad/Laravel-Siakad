@@ -11,6 +11,7 @@ class Schedule extends Model
 
     protected $fillable = [
         'subject_id',
+        'student_id',
         'hari',
         'jam_mulai',
         'jam_selesai',
@@ -23,10 +24,10 @@ class Schedule extends Model
         'delete_by',
     ];
 
-    // public function student()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function student()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function subject()
     {
