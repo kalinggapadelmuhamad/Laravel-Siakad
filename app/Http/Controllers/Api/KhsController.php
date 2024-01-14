@@ -14,7 +14,7 @@ class KhsController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $khs = Khs::with(['subject', 'student'])->where('student_id', $user->id)->get();
+        $khs = Khs::with(['subject', 'studentgit a'])->where('student_id', $user->id)->get();
         return response()->json([
             'data' => $khs
         ]);
