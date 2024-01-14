@@ -11,11 +11,21 @@ class Subject extends Model
 
     protected $fillable = [
         'title',
-        'lecture_id'
+        'lecture_id',
+        'semester',
+        'academic_year',
+        'sks',
+        'code',
+        'description'
     ];
 
     public function lecture()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function khs()
+    {
+        return $this->hasMany(Khs::class);
     }
 }

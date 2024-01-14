@@ -51,8 +51,13 @@ class User extends Authenticatable
         return $this->hasMany(Subject::class);
     }
 
-    public function schedule()
+    public function khs()
     {
-        return $this->hasMany(Schedule::class);
+        return $this->hasMany(Khs::class);
     }
+
+    // public function schedule()
+    // {
+    //     return $this->hasMany(Schedule::class);
+    // }
 }
