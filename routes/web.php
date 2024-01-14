@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\TestStatus\Risky;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,10 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
 
     Route::resource('/user', UserController::class);
+    Route::resource('/subject', SubjectController::class);
+    Route::resource('/schedule', ScheduleController::class);
+    Route::get('schedules/generate-qr-code/{Schedule}', [ScheduleController::class, 'generateQrCode'])->name('generate-qrcode');
+    Route::put('schedules/generate-qr-code-update/{Schedule}', [ScheduleController::class, 'generateQrCodeUpdate'])->name('generate-qrcode-update');
 });
 
 // Route::prefix('auth')->group(function () {

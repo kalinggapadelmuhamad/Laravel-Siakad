@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('lecture_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('semester');
+            $table->string('academic_year');
+            $table->string('sks');
+            $table->string('code');
+            $table->string('description');
             $table->timestamps();
         });
     }

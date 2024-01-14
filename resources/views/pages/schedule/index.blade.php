@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Schedule')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,17 +11,17 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>All Users</h1>
+                <h1>All Schedule</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
+                    <div class="breadcrumb-item"><a href="{{ route('schedule.index') }}">subject</a></div>
+                    <div class="breadcrumb-item">All Schedules</div>
                 </div>
             </div>
             <div class="section-body">
                 {{-- <h2 class="section-title">Posts</h2>
                 <p class="section-lead">
-                    You can manage all users, such as editing, deleting and more.
+                    You can manage all subjects, such as editing, deleting and more.
                 </p> --}}
                 <div class="row">
                     <div class="col-12">
@@ -32,19 +32,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Posts</h4>
+                                <h4>All Schedules</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
                                     <div class="section-header-button">
-                                        <a href="{{ route('user.create') }}" class="btn btn-primary">Add New</a>
+                                        <a href="{{ route('schedule.create') }}" class="btn btn-primary">Add New</a>
                                     </div>
                                 </div>
                                 <div class="float-right">
-                                    <form action="{{ route('user.index') }}" method="GET">
+                                    <form action="{{ route('schedule.index') }}" method="GET">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="name"
-                                                value="{{ request('name') }}">
+                                            <input type="text" class="form-control" placeholder="Search" name="schedules"
+                                                value="{{ request('schedules') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -57,36 +57,44 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th style="width: 3%">No</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Created At</th>
-                                            <th style="width: 5%" class="text-center">Action</th>
+                                            <th>#</th>
+                                            <th>Subject</th>
+                                            <th>Day</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Room</th>
+                                            <th>Attendance Code</th>
+                                            <th>Action</th>
                                         </tr>
-                                        @foreach ($users as $index => $user)
+                                        @foreach ($schedules as $index => $schedule)
                                             <tr>
-                                                <td>
-                                                    {{ $users->firstItem() + $index }}
+                                                {{-- <td>
+                                                    {{ $schedules->firstItem() + $index }}
                                                 </td>
+                                                <td>{{ $schedule->title }}</td>
+                                                <td>{{ $schedule->lecture->name }}</td>
+                                                <td>{{ $schedule->semester }}</td>
+                                                <td>{{ $schedule->academic_year }}</td>
+                                                <td>{{ $schedule->sks }}</td> --}}
                                                 <td>
-                                                    {{ $user->name }}
+                                                    {{ $schedules->firstItem() + $index }}
                                                 </td>
+                                                <td>{{ $schedule->id }} - {{ $schedule->subject->title }}</td>
+                                                <td>{{ $schedule->hari }}</td>
+                                                <td>{{ $schedule->jam_mulai }}</td>
+                                                <td>{{ $schedule->jam_selesai }}</td>
+                                                <td>{{ $schedule->ruangan }}</td>
                                                 <td>
-                                                    {{ $user->email }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->phone }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->created_at->format('d-F-Y') }}
+                                                    <a href="{{ route('generate-qrcode', $schedule) }}"
+                                                        class="btn btn-primary btn-sm">Generate QRCode</a>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('user.edit', $user) }}"
+                                                        <a href="{{ route('schedule.edit', $schedule) }}"
                                                             class="btn btn-sm btn-icon btn-primary m-1"><i
                                                                 class="fas fa-user-pen"></i></a>
-                                                        <form action="{{ route('user.destroy', $user) }}" method="post">
+                                                        <form action="{{ route('schedule.destroy', $schedule) }}"
+                                                            method="post">
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btn-sm btn-danger btn-icon m-1">
@@ -101,12 +109,12 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between">
                                     <span>
-                                        Showing {{ $users->firstItem() }}
-                                        to {{ $users->lastItem() }}
-                                        of {{ $users->total() }} entries
+                                        Showing {{ $schedules->firstItem() }}
+                                        to {{ $schedules->lastItem() }}
+                                        of {{ $schedules->total() }} entries
                                     </span>
                                     <div class="paginate-sm">
-                                        {{ $users->onEachSide(0)->links() }}
+                                        {{ $schedules->onEachSide(0)->links() }}
                                     </div>
                                 </div>
                             </div>

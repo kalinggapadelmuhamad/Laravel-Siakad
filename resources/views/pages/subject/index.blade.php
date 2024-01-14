@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Subjects')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,14 +14,14 @@
                 <h1>All Users</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a></div>
-                    <div class="breadcrumb-item">All Users</div>
+                    <div class="breadcrumb-item"><a href="{{ route('subject.index') }}">subject</a></div>
+                    <div class="breadcrumb-item">All Subjects</div>
                 </div>
             </div>
             <div class="section-body">
                 {{-- <h2 class="section-title">Posts</h2>
                 <p class="section-lead">
-                    You can manage all users, such as editing, deleting and more.
+                    You can manage all subjects, such as editing, deleting and more.
                 </p> --}}
                 <div class="row">
                     <div class="col-12">
@@ -32,19 +32,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Posts</h4>
+                                <h4>All Subjects</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
                                     <div class="section-header-button">
-                                        <a href="{{ route('user.create') }}" class="btn btn-primary">Add New</a>
+                                        <a href="{{ route('subject.create') }}" class="btn btn-primary">Add New</a>
                                     </div>
                                 </div>
                                 <div class="float-right">
-                                    <form action="{{ route('user.index') }}" method="GET">
+                                    <form action="{{ route('subject.index') }}" method="GET">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="name"
-                                                value="{{ request('name') }}">
+                                            <input type="text" class="form-control" placeholder="Search" name="title"
+                                                value="{{ request('title') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -57,36 +57,32 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th style="width: 3%">No</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Created At</th>
-                                            <th style="width: 5%" class="text-center">Action</th>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Lecturer</th>
+                                            <th>Semester</th>
+                                            <th>Academic Year</th>
+                                            <th>SKS</th>
+                                            {{-- <th>Code</th> --}}
+                                            <th>Action</th>
                                         </tr>
-                                        @foreach ($users as $index => $user)
+                                        @foreach ($subjects as $index => $subject)
                                             <tr>
                                                 <td>
-                                                    {{ $users->firstItem() + $index }}
+                                                    {{ $subjects->firstItem() + $index }}
                                                 </td>
-                                                <td>
-                                                    {{ $user->name }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->email }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->phone }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->created_at->format('d-F-Y') }}
-                                                </td>
+                                                <td>{{ $subject->title }}</td>
+                                                <td>{{ $subject->lecture->name }}</td>
+                                                <td>{{ $subject->semester }}</td>
+                                                <td>{{ $subject->academic_year }}</td>
+                                                <td>{{ $subject->sks }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('user.edit', $user) }}"
+                                                        <a href="{{ route('subject.edit', $subject) }}"
                                                             class="btn btn-sm btn-icon btn-primary m-1"><i
                                                                 class="fas fa-user-pen"></i></a>
-                                                        <form action="{{ route('user.destroy', $user) }}" method="post">
+                                                        <form action="{{ route('subject.destroy', $subject) }}"
+                                                            method="post">
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btn-sm btn-danger btn-icon m-1">
@@ -101,12 +97,12 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between">
                                     <span>
-                                        Showing {{ $users->firstItem() }}
-                                        to {{ $users->lastItem() }}
-                                        of {{ $users->total() }} entries
+                                        Showing {{ $subjects->firstItem() }}
+                                        to {{ $subjects->lastItem() }}
+                                        of {{ $subjects->total() }} entries
                                     </span>
                                     <div class="paginate-sm">
-                                        {{ $users->onEachSide(0)->links() }}
+                                        {{ $subjects->onEachSide(0)->links() }}
                                     </div>
                                 </div>
                             </div>

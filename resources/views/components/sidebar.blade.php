@@ -15,6 +15,14 @@
                 <a href="{{ route('user.index') }}" class="nav-link"><i
                         class="fas fa-user-group"></i><span>Users</span></a>
             </li>
+            <li class="nav-item  {{ $type_menu === 'subjects' ? 'active' : '' }}">
+                <a href="{{ route('subject.index') }}" class="nav-link"><i
+                        class="fas fa-user-group"></i><span>Subjects</span></a>
+            </li>
+            <li class="nav-item  {{ $type_menu === 'schedules' ? 'active' : '' }}">
+                <a href="{{ route('schedule.index') }}" class="nav-link"><i
+                        class="fas fa-user-group"></i><span>Schedules</span></a>
+            </li>
         </ul>
     </aside>
 </div>
