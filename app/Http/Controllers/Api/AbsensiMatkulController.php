@@ -16,7 +16,7 @@ class AbsensiMatkulController extends Controller
         // user
         $user = $request->user();
         //get khs by userid pagenate 10 data
-        $absensiMatkul = AbsensiMatkul::where('student_id', '=', $user->id)->get();
+        $absensiMatkul = AbsensiMatkul::where('student_id', '=', $user->id)->latest()->get();
 
         return response()->json([
             'data' => $absensiMatkul
@@ -39,6 +39,14 @@ class AbsensiMatkulController extends Controller
             'longitude' => 'required',
         ]);
 
+        //save user id
+        $user = $request->user();
+        $request->merge([
+            'student_id' => $user->id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ]);
+
         $absensiMatkul = AbsensiMatkul::create($request->all());
         return $absensiMatkul;
     }
@@ -56,7 +64,15 @@ class AbsensiMatkulController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // update nilai by id
+        $absensiMatkul = AbsensiMatkul::findOrFail($id);
+        // update by user id
+        $user = $request->user();
+        $request->merge([
+            'updated_by' => $user->id,
+        ]);
+        $absensiMatkul->update($request->all());
+        return $absensiMatkul;
     }
 
     /**

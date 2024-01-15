@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\StudentSchedule;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -14,7 +15,7 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $schedule = Schedule::with(['subject', 'subject.lecture', 'student'])->where('student_id', $user->id)->get();
+        $schedule = StudentSchedule::with(['schedule', 'schedule.subject.lecture', 'student'])->where('student_id', $user->id)->get();
         return response()->json([
             'data' => $schedule
         ]);

@@ -11,7 +11,7 @@ class Schedule extends Model
 
     protected $fillable = [
         'subject_id',
-        'student_id',
+        // 'student_id',
         'hari',
         'jam_mulai',
         'jam_selesai',
@@ -32,5 +32,10 @@ class Schedule extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function studentSchedule()
+    {
+        return $this->hasMany(StudentSchedule::class);
     }
 }
